@@ -8,3 +8,7 @@ parameter = "?parseTime=true"
 
 [server]
 address = "0.0.0.0:8001"
+
+[firebase]
+url = "https://crawlfish-dev.firebaseio.com"
+auth = "BM0t8EUKDonU7qOkBx0eipAmB6YKQtp5rRdcNuga"

@@ -27,9 +27,12 @@ func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 	crawlRequest.SplitWords()
 	crawlRequest.TrimUrl()
 
-	response := crawlPayload(&crawlRequest)
+	go func() {
+		response := crawlPayload(&crawlRequest)
+		a.Firebase.Push(response)
+	}()
 
-	return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusOK, nil)
 }
 
 type CrawlRequest struct {
@@ -53,6 +56,7 @@ func (c *CrawlRequest) WordsTotal() int {
 }
 
 type CrawlResponse struct {
+	Website           string     `json:"website"`
 	WordsFound        WordsFound `json:"words_found"`
 	PagesSearched     Links      `json:"pages_searched"`
 	PagesFound        Links      `json:"pages_found"`
@@ -92,6 +96,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 	totalTimeElapsed := time.Since(startCrawling)
 
 	return &CrawlResponse{
+		Website:           crawlRequest.Url,
 		WordsFound:        ext.WordsFound,
 		PagesSearched:     ext.PagesSearched,
 		PagesFound:        ext.PagesFound,
