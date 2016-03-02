@@ -23,7 +23,7 @@ type IFirebase interface {
 }
 
 func (f *firebaseProvider) Push(value interface{}) error {
-	path := fmt.Sprintf("/crawls")
+	path := fmt.Sprintf("crawls")
 
 	childValue := f.client.Child(path, nil, nil)
 	if childValue == nil {

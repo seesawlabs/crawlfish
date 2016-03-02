@@ -18,8 +18,6 @@ import (
 func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 	crawlRequest := CrawlRequest{}
 
-	fmt.Println("We have got request !!")
-
 	if err := c.Bind(&crawlRequest); err != nil {
 		return c.JSON(http.StatusBadRequest, nil)
 	}
@@ -29,6 +27,7 @@ func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 
 	go func() {
 		response := crawlPayload(&crawlRequest)
+
 		a.Firebase.Push(response)
 	}()
 
@@ -43,7 +42,10 @@ type CrawlRequest struct {
 
 func (c *CrawlRequest) SplitWords() {
 	for _, s := range strings.Split(c.Words, "\n") {
-		c.WordList = append(c.WordList, strings.TrimSpace(s))
+		word := strings.TrimSpace(s)
+		if word != "" {
+			c.WordList = append(c.WordList, word)
+		}
 	}
 }
 
@@ -56,10 +58,11 @@ func (c *CrawlRequest) WordsTotal() int {
 }
 
 type CrawlResponse struct {
+	CrawlingDate      time.Time  `json:"crawling_date"`
+	Words             []string   `json:"words"`
 	Website           string     `json:"website"`
 	WordsFound        WordsFound `json:"words_found"`
 	PagesSearched     Links      `json:"pages_searched"`
-	PagesFound        Links      `json:"pages_found"`
 	TotalTimeTaken    float64    `json:"total_time_taken"`
 	PercentageOfFound float64    `json:"percentage_of_found"`
 }
@@ -69,8 +72,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 
 	ext := &Ext{
 		crawlRequest,
-		map[string]Links{},
-		Links{},
+		make(map[string]Links, 1),
 		Links{},
 		&gocrawl.DefaultExtender{},
 	}
@@ -81,25 +83,23 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 	opts.LogFlags = gocrawl.LogError
 	opts.SameHostOnly = true
 
-	// TODO: Remove after development
-	opts.MaxVisits = 2
-
 	craw := gocrawl.NewCrawlerWithOptions(opts)
 
 	startCrawling := time.Now()
 	err := craw.Run(crawlRequest.Url)
 	if err != nil {
-		// TODO: Log error
+		logrus.Error(err)
 		fmt.Println(err.Error())
 	}
 
 	totalTimeElapsed := time.Since(startCrawling)
 
 	return &CrawlResponse{
+		CrawlingDate:      time.Now(),
+		Words:             crawlRequest.WordList,
 		Website:           crawlRequest.Url,
 		WordsFound:        ext.WordsFound,
 		PagesSearched:     ext.PagesSearched,
-		PagesFound:        ext.PagesFound,
 		TotalTimeTaken:    totalTimeElapsed.Seconds(),
 		PercentageOfFound: ext.WordsFound.PercentOfWordsFound(crawlRequest.WordsTotal()),
 	}
@@ -109,6 +109,7 @@ type Link struct {
 	Url         string  `json:"ulr"`
 	TimeElapsed float64 `json:"time_elapsed"`
 	WordCount   *int    `json:"word_count,omitempty"`
+	Found       *bool   `json:"found,omitempty"`
 }
 
 type Links []Link
@@ -124,7 +125,6 @@ type Ext struct {
 	CrawlPayload  *CrawlRequest
 	WordsFound    WordsFound
 	PagesSearched Links
-	PagesFound    Links
 	*gocrawl.DefaultExtender
 }
 
@@ -144,19 +144,19 @@ func (e *Ext) Visit(ctx *gocrawl.URLContext, res *http.Response, doc *goquery.Do
 			count := bytes.Count(body, []byte(word))
 			endWordSearch := time.Since(startWordSearch)
 
-			e.WordsFound[word] = append(e.WordsFound[word], Link{url, endWordSearch.Seconds(), &count})
+			e.WordsFound[word] = append(e.WordsFound[word], Link{url, endWordSearch.Seconds(), &count, nil})
 		}
 	}
 
 	elapsedTime := time.Since(start)
 
 	// Add to PagesSearched
-	e.PagesSearched = append(e.PagesSearched, Link{url, elapsedTime.Seconds(), nil})
-
-	// Add to PagesFound
-	if pageHasAnyWord {
-		e.PagesFound = append(e.PagesFound, Link{url, elapsedTime.Seconds(), nil})
-	}
+	e.PagesSearched = append(e.PagesSearched, Link{
+		url,
+		elapsedTime.Seconds(),
+		nil,
+		&pageHasAnyWord,
+	})
 
 	return nil, true
 }
