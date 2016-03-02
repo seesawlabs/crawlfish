@@ -118,7 +118,7 @@ type WordsFound map[string]Links
 func (w WordsFound) PercentOfWordsFound(total int) float64 {
 	found := len(w)
 
-	return float64((found / total) * 100)
+	return (float64(found) / float64(total)) * 100
 }
 
 type Ext struct {
