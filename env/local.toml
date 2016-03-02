@@ -1,0 +1,10 @@
+[database]
+username = "root"
+password = ""
+hostname = "localhost"
+port = "3306"
+name = "crawlfish"
+parameter = "?parseTime=true"
+
+[server]
+address = "0.0.0.0:8001"
