@@ -79,7 +79,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 
 	//Set custom options
 	opts := gocrawl.NewOptions(ext)
-	opts.CrawlDelay = 1 * time.Second
+	opts.CrawlDelay = 3 * time.Second
 	opts.LogFlags = gocrawl.LogError
 	opts.SameHostOnly = true
 
@@ -129,9 +129,12 @@ type Ext struct {
 }
 
 func (e *Ext) Visit(ctx *gocrawl.URLContext, res *http.Response, doc *goquery.Document) (interface{}, bool) {
+
 	start := time.Now()
 
 	url := ctx.URL().String()
+
+	fmt.Printf("Crawling URL: %s || Status: %s \n \n ", url, res.Status)
 
 	pageHasAnyWord := false
 
