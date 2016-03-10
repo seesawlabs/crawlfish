@@ -3,10 +3,11 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"google.golang.org/appengine"
 	"net/http"
 	"runtime"
+
+	"github.com/labstack/echo"
+	"google.golang.org/appengine"
 )
 
 func createMux() *echo.Echo {

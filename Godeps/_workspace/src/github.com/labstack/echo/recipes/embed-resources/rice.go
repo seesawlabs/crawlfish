@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 
-	"github.com/GeertJohan/go.rice"
 	"github.com/labstack/echo"
 )
 
