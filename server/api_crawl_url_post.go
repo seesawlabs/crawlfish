@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"time"
 
 	"strings"
@@ -25,13 +26,34 @@ func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 	crawlRequest.SplitWords()
 	crawlRequest.TrimUrl()
 
+	startDate := time.Now()
+
+	response := CrawlResponse{
+		CrawlingStartDate: &startDate,
+		Words:             crawlRequest.WordList,
+		Website:           crawlRequest.Url,
+		InProgress:        true,
+	}
+
+	fullUrl, err := a.Firebase.Push(response)
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	u, err := url.Parse(*fullUrl)
+	path := u.Path
+
 	go func() {
 		response := crawlPayload(&crawlRequest)
 
-		a.Firebase.Push(response)
+		err := a.Firebase.Update(path, response)
+		if err != nil {
+			logrus.Error(err)
+		}
+
 	}()
 
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusOK, response)
 }
 
 type CrawlRequest struct {
@@ -58,13 +80,15 @@ func (c *CrawlRequest) WordsTotal() int {
 }
 
 type CrawlResponse struct {
-	CrawlingDate      time.Time  `json:"crawling_date"`
-	Words             []string   `json:"words"`
-	Website           string     `json:"website"`
-	WordsFound        WordsFound `json:"words_found"`
-	PagesSearched     Links      `json:"pages_searched"`
-	TotalTimeTaken    float64    `json:"total_time_taken"`
-	PercentageOfFound float64    `json:"percentage_of_found"`
+	CrawlingStartDate *time.Time `json:"crawling_start_date,omitempty"`
+	CrawlingEndDate   *time.Time `json:"crawling_end_date,omitempty"`
+	Words             []string   `json:"words,omitempty"`
+	Website           string     `json:"website,omitempty"`
+	WordsFound        WordsFound `json:"words_found,omitempty"`
+	PagesSearched     Links      `json:"pages_searched,omitempty"`
+	TotalTimeTaken    float64    `json:"total_time_taken,omitempty"`
+	PercentageOfFound float64    `json:"percentage_of_found,omitempty"`
+	InProgress        bool       `json:"in_progress"`
 }
 
 func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
@@ -79,9 +103,11 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 
 	//Set custom options
 	opts := gocrawl.NewOptions(ext)
-	opts.CrawlDelay = 2 * time.Second
+	opts.CrawlDelay = 1 * time.Second
 	opts.LogFlags = gocrawl.LogError
 	opts.SameHostOnly = true
+
+	opts.MaxVisits = 30
 
 	craw := gocrawl.NewCrawlerWithOptions(opts)
 
@@ -94,10 +120,10 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 
 	totalTimeElapsed := time.Since(startCrawling)
 
+	endDate := time.Now()
 	return &CrawlResponse{
-		CrawlingDate:      time.Now(),
-		Words:             crawlRequest.WordList,
-		Website:           crawlRequest.Url,
+		CrawlingEndDate:   &endDate,
+		InProgress:        false,
 		WordsFound:        ext.WordsFound,
 		PagesSearched:     ext.PagesSearched,
 		TotalTimeTaken:    totalTimeElapsed.Seconds(),

@@ -19,25 +19,35 @@ type firebaseProvider struct {
 }
 
 type IFirebase interface {
-	Push(value interface{}) error
+	Push(value interface{}) (*string, error)
+	Update(path string, value interface{}) error
 }
 
-func (f *firebaseProvider) Push(value interface{}) error {
+func (f *firebaseProvider) Push(value interface{}) (*string, error) {
 	path := fmt.Sprintf("crawls")
 
 	childValue := f.client.Child(path, nil, nil)
 	if childValue == nil {
 		logrus.Error(fmt.Sprintf("Path: %s, Value: %s", path, value))
-		return ErrFirebaseChildIsNil
+		return nil, ErrFirebaseChildIsNil
 	}
 
-	_, err := childValue.Push(value, nil)
+	result, err := childValue.Push(value, nil)
 	if err != nil {
 		logrus.Error("Push error", err)
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &result.Url, nil
+}
+
+func (f *firebaseProvider) Update(path string, value interface{}) error {
+	err := f.client.Update(path, value, nil)
+	if err != nil {
+		logrus.Error(fmt.Sprintf("Firebase Update Error. Path: %s, Value: %s", path, value))
+	}
+
+	return err
 }
 
 func NewFirebase(c config.Firebase) IFirebase {
