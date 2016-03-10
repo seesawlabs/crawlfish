@@ -1,6 +1,8 @@
 package server
 
 import (
+	"os"
+
 	"github.com/labstack/echo"
 	"github.com/seesawlabs/crawlfish/shared/config"
 	"github.com/seesawlabs/crawlfish/shared/firebase"
@@ -29,5 +31,6 @@ func (s *Server) Init() {
 		v1ApiGroup.Post("/crawl", apiV1Handler.apiV1CrawlUrlPost)
 	}
 
-	s.Router.Run(s.Config.ServerConfig().Address)
+	//s.Router.Run(s.Config.ServerConfig().Address)
+	s.Router.Run(":" + os.Getenv("PORT"))
 }
