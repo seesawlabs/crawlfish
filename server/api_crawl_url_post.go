@@ -40,6 +40,8 @@ func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 		logrus.Error(err)
 	}
 
+	response.FirebasePath = fullUrl
+
 	u, err := url.Parse(*fullUrl)
 	path := u.Path
 
@@ -80,6 +82,7 @@ func (c *CrawlRequest) WordsTotal() int {
 }
 
 type CrawlResponse struct {
+	FirebasePath      string     `json:"firebase_path,omitempty"`
 	CrawlingStartDate *time.Time `json:"crawling_start_date,omitempty"`
 	CrawlingEndDate   *time.Time `json:"crawling_end_date,omitempty"`
 	Words             []string   `json:"words,omitempty"`
@@ -107,7 +110,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 	opts.LogFlags = gocrawl.LogError
 	opts.SameHostOnly = true
 
-	opts.MaxVisits = 30
+	opts.MaxVisits = 50
 
 	craw := gocrawl.NewCrawlerWithOptions(opts)
 
