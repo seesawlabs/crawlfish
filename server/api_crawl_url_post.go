@@ -40,7 +40,7 @@ func (a *ApiV1CrawlHandler) apiV1CrawlUrlPost(c *echo.Context) error {
 		logrus.Error(err)
 	}
 
-	response.FirebasePath = fullUrl
+	response.FirebasePath = *fullUrl
 
 	u, err := url.Parse(*fullUrl)
 	path := u.Path
