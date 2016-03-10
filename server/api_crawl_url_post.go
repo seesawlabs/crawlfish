@@ -79,7 +79,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 
 	//Set custom options
 	opts := gocrawl.NewOptions(ext)
-	opts.CrawlDelay = 3 * time.Second
+	opts.CrawlDelay = 2 * time.Second
 	opts.LogFlags = gocrawl.LogError
 	opts.SameHostOnly = true
 
