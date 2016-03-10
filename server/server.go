@@ -2,7 +2,6 @@ package server
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/labstack/echo"
 	"github.com/seesawlabs/crawlfish/shared/config"
@@ -26,29 +25,19 @@ func (s *Server) Init() {
 		Firebase: firebase.NewFirebase(s.Config.FirebaseConfig()),
 	}
 
-	s.Router.Options("/*", func(c *echo.Context) error {
-		return c.NoContent(http.StatusNoContent)
+	s.Router.Options("/api/v1/crawl", func(c *echo.Context) error {
+		return c.JSON(http.StatusOK, nil)
 	})
 
 	var v1Api = "/api/v1"
 	{
 		v1ApiGroup := s.Router.Group(v1Api)
 		v1ApiGroup.Use(CORSMiddleware())
-		v1ApiGroup.Use(OptionsMiddleware())
 		v1ApiGroup.Post("/crawl", apiV1Handler.apiV1CrawlUrlPost)
 	}
 
-	//s.Router.Run(s.Config.ServerConfig().Address)
-	s.Router.Run(":" + os.Getenv("PORT"))
-}
-
-func OptionsMiddleware() echo.HandlerFunc {
-	return func(c *echo.Context) error {
-		if c.Request().Method == "OPTIONS" {
-			return c.JSON(http.StatusOK, nil)
-		}
-		return nil
-	}
+	s.Router.Run(s.Config.ServerConfig().Address)
+	//s.Router.Run(":" + os.Getenv("PORT"))
 }
 
 func CORSMiddleware() echo.HandlerFunc {
