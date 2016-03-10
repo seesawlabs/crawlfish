@@ -1,0 +1,120 @@
+{
+	"ImportPath": "github.com/seesawlabs/crawlfish",
+	"GoVersion": "go1.5.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-39-ga4eecd4",
+			"Rev": "a4eecd407cf4129fc902ece859a0114e4cf1a7f4"
+		},
+		{
+			"ImportPath": "github.com/PuerkitoBio/gocrawl",
+			"Comment": "v0.4.1-37-g639cda8",
+			"Rev": "639cda895f34579b33a74d068cf4c69bb1777248"
+		},
+		{
+			"ImportPath": "github.com/PuerkitoBio/goquery",
+			"Comment": "v0.3.2-84-g4126223",
+			"Rev": "4126223a86db8598275b29db04d511cfdab67cf1"
+		},
+		{
+			"ImportPath": "github.com/PuerkitoBio/purell",
+			"Comment": "v0.1.0-23-gd69616f",
+			"Rev": "d69616f51cdfcd7514d6a380847a152dfc2a749d"
+		},
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.9.0-8-g57cce1e",
+			"Rev": "57cce1ed6103dce7791881d3e69e55f90d986aa5"
+		},
+		{
+			"ImportPath": "github.com/andybalholm/cascadia",
+			"Rev": "3ad29d1ad1c4f2023e355603324348cf1f4b2d48"
+		},
+		{
+			"ImportPath": "github.com/cosn/firebase",
+			"Rev": "9a5bce64e5c22fba9ea18907bfa8dff54bd4ac12"
+		},
+		{
+			"ImportPath": "github.com/dropbox/godropbox/errors",
+			"Rev": "3c8a9189a8748951b62c6a48c072448b2fd4cac7"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/hcl",
+			"Rev": "1c284ec98f4b398443cbabb0d9197f7f4cc0077c"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-27-ge6ac2fc",
+			"Rev": "e6ac2fc51e89a3249e82157fa0bb7a18ef9dd5bb"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "bb797dc4fb8320488f47bf11de07a733d7233e1f"
+		},
+		{
+			"ImportPath": "github.com/labstack/echo",
+			"Comment": "v1.2.0-34-ge48ebd3",
+			"Rev": "e48ebd342145c453437176624ea05424585473ce"
+		},
+		{
+			"ImportPath": "github.com/labstack/gommon/color",
+			"Comment": "v0.0.3-7-g3c61341",
+			"Rev": "3c613419957bbd5afea3fc87bbc0f9f2dca19196"
+		},
+		{
+			"ImportPath": "github.com/magiconair/properties",
+			"Comment": "v1.6.0-5-g497d0af",
+			"Rev": "497d0afefddf378f9ffb3c89db6a326985908519"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "d2dd0262208475919e1a362f675cfc0e7c10e905"
+		},
+		{
+			"ImportPath": "github.com/opennota/urlesc",
+			"Rev": "5fa9ff0392746aeae1c4b37fcc42c65afa7a9587"
+		},
+		{
+			"ImportPath": "github.com/spf13/cast",
+			"Rev": "ee7b3e0353166ab1f3a605294ac8cd2b77953778"
+		},
+		{
+			"ImportPath": "github.com/spf13/jwalterweatherman",
+			"Rev": "d00654080cddbd2b082acaa74007cb94a2b40866"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "7f60f83a2c81bc3c3c0d5297f61ddfa68da9d3b7"
+		},
+		{
+			"ImportPath": "github.com/spf13/viper",
+			"Rev": "c975dc1b4eacf4ec7fdbf0873638de5d090ba323"
+		},
+		{
+			"ImportPath": "github.com/temoto/robotstxt.go",
+			"Rev": "b8a039be43ce65409fe54b4bc09f2ae8a3925a54"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "042ba42fa6633b34205efc66ba5719cd3afd8d38"
+		},
+		{
+			"ImportPath": "golang.org/x/net/http2",
+			"Rev": "042ba42fa6633b34205efc66ba5719cd3afd8d38"
+		},
+		{
+			"ImportPath": "golang.org/x/net/websocket",
+			"Rev": "042ba42fa6633b34205efc66ba5719cd3afd8d38"
+		},
+		{
+			"ImportPath": "gopkg.in/fsnotify.v1",
+			"Comment": "v1.2.0",
+			"Rev": "96c060f6a6b7e0d6f75fddd10efeaca3e5d1bcb0"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "53feefa2559fb8dfa8d81baad31be332c97d6c77"
+		}
+	]
+}
