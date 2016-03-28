@@ -87,11 +87,12 @@ type CrawlResponse struct {
 	CrawlingEndDate   *time.Time `json:"crawling_end_date,omitempty"`
 	Words             []string   `json:"words,omitempty"`
 	Website           string     `json:"website,omitempty"`
-	WordsFound        WordsFound `json:"words_found,omitempty"`
-	PagesSearched     Links      `json:"pages_searched,omitempty"`
-	TotalTimeTaken    float64    `json:"total_time_taken,omitempty"`
-	PercentageOfFound float64    `json:"percentage_of_found,omitempty"`
-	InProgress        bool       `json:"in_progress"`
+	//WordsFound        WordsFound `json:"words_found,omitempty"`
+	WordsFound        []WordsFoundFormatted `json:"words_found,omitempty"`
+	PagesSearched     Links                 `json:"pages_searched,omitempty"`
+	TotalTimeTaken    float64               `json:"total_time_taken,omitempty"`
+	PercentageOfFound float64               `json:"percentage_of_found,omitempty"`
+	InProgress        bool                  `json:"in_progress"`
 }
 
 func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
@@ -127,7 +128,7 @@ func crawlPayload(crawlRequest *CrawlRequest) *CrawlResponse {
 	return &CrawlResponse{
 		CrawlingEndDate:   &endDate,
 		InProgress:        false,
-		WordsFound:        ext.WordsFound,
+		WordsFound:        ConvertWordsFound(ext.WordsFound),
 		PagesSearched:     ext.PagesSearched,
 		TotalTimeTaken:    totalTimeElapsed.Seconds(),
 		PercentageOfFound: ext.WordsFound.PercentOfWordsFound(crawlRequest.WordsTotal()),
@@ -143,6 +144,21 @@ type Link struct {
 
 type Links []Link
 type WordsFound map[string]Links
+
+type WordsFoundFormatted struct {
+	Name  string
+	Links Links
+}
+
+func ConvertWordsFound(wordsFound WordsFound) []WordsFoundFormatted {
+	wff := []WordsFoundFormatted{}
+
+	for word, links := range wordsFound {
+		wff = append(wff, WordsFoundFormatted{Name: word, Links: links})
+	}
+
+	return wff
+}
 
 func (w WordsFound) PercentOfWordsFound(total int) float64 {
 	found := len(w)

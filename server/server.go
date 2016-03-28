@@ -2,7 +2,6 @@ package server
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/labstack/echo"
 	"github.com/seesawlabs/crawlfish/shared/config"
@@ -37,8 +36,8 @@ func (s *Server) Init() {
 		v1ApiGroup.Post("/crawl", apiV1Handler.apiV1CrawlUrlPost)
 	}
 
-	//s.Router.Run(s.Config.ServerConfig().Address)
-	s.Router.Run(":" + os.Getenv("PORT"))
+	s.Router.Run(s.Config.ServerConfig().Address)
+	//s.Router.Run(":" + os.Getenv("PORT"))
 }
 
 func CORSMiddleware() echo.HandlerFunc {
