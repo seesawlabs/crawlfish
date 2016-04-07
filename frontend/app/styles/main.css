@@ -138,7 +138,8 @@ md-toolbar {
         border-radius: 2px;
         color: white;
         width: 100%;
-        padding: .25em; }
+        padding: .25em;
+        padding-left: 1em; }
     md-toolbar .tools .pinned, md-toolbar .tools .pinned-active {
       width: 5%;
       height: 100%;

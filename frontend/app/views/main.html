@@ -1,21 +1,27 @@
-<div>
+<md-toolbar>
+<!--
+    <div class="md-toolbar-tools">
+        <i class="fa fa-menu"></i>
+        <div class="tools">
+            <div class="search">
+                <input ng-model="main.searchTerm" placeholder="Search History">
+            </div>
 
+                <div ng-class="{'pinned-active':filterPinned,'pinned':!filterPinned,}" ng-click="filterPinned = !filterPinned">
+                   <i class="fa fa-thumb-tack"></i>
+                </div>
 
-    <!--
-    <md-sidenav class="md-sidenav-left" md-component-id="left">
-        <md-toolbar class="md-theme-light">
-            <h1 class="md-toolbar-tools">Sidenav left</h1>
-        </md-toolbar>
-        
-    </md-sidenav>
+        </div>
+    </div>
 -->
+</md-toolbar>
+<div class="container">
     <div class="heading">
         <span>New Crawl</span>
     </div>
     <md-card layout="column" ng-cloak class="search-card">
-
         <md-chips ng-model="main.tags" md-separator-keys="main.keys" placeholder="Search Words" secondary-placeholder="Return separated tags" flex="100"></md-chips>
-        <div class="hint">Seperate search words with a comma or the return key!</div>
+        <div class="hint">Seperate search words with the return key!</div>
         <md-input-container class="md-block">
             <label>Crawl URL</label>
             <input ng-model="main.url">
@@ -23,16 +29,10 @@
         <div class="search-button">
             <md-button class="md-raised md-primary" ng-click="main.startCrawl()">Start Crawl</md-button>
         </div>
-
-
     </md-card>
-
     <div class="heading">
         <span>Crawl History</span>
     </div>
-
-
-
     <md-card layout="column" class="crawl-card" ng-repeat="crawl in crawlHistory" ng-click="main.toggleCard(crawl)" ng-class="{'crawl-card-active': crawl.clicked, 'crawl-card':!crawl.clicked,'md-whiteframe-6dp': crawl.clicked,'last':$last, 'first':$first}">
         <div class="top" layout="row" ng-class="{'md-whiteframe-1dp':crawl.clicked}">
             <md-card-title>
@@ -43,15 +43,7 @@
                     </span>
                 </md-card-title-text>
             </md-card-title>
-
-<!--
-            <md-card-actions layout="row" layout-align="end center">
-                <i class="fa fa-thumb-tack"></i>
-                <i class="fa fa-trash"></i>
-            </md-card-actions>
--->
         </div>
-
         <div layout="row" class="full" ng-if="crawl.clicked">
             <div class="left">
                 <div class="progress-wrapper">
@@ -79,9 +71,6 @@
                     <br>
                     <span>Completed in {{crawl.total_time_taken | secondsToDateTime | date:'mm:ss'}} minutes</span>
                     <br>
-
-
-
                 </div>
             </div>
             <div class="right">
@@ -99,38 +88,7 @@
                             </md-list-item>
                         </md-list>
                     </div>
-
                 </md-content>
-                <!--
-                <md-content>
-                    <md-list fkex>
-                        <md-list-item class="word" ng-repeat="word in crawl.words_found">
-                            <md-subheader class="md-no-sticky">2 line item</md-subheader>
-                            <md-list fkex>
-                                <md-list-item class="md-2-line">
-                                    <img ng-src="{{todos[0].face}}?20" class="md-avatar" alt="{{todos[0].who}}" />
-                                    <div class="md-list-item-text">
-                                        <h3>{{ todos[0].who }}</h3>
-                                        <p>Secondary text</p>
-                                    </div>
-                                </md-list-item>
-                            </md-list>
-                        </md-list-item>
-                    </md-list>
-                </md-content>
--->
             </div>
-
-
-
     </md-card>
-
-
-    <!--
-    <md-button ng-click="toggleLeft()" ng-hide="isOpenLeft()" class="md-primary">
-        Toggle Left
-    </md-button>
--->
-
-
     </div>
