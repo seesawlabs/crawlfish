@@ -1,0 +1,357 @@
+$ltgrey: #F2F2F2;
+$mdgrey: #9F9F9F;
+$white: #FFFFFF;
+$green-blue: #607D8B;
+
+/* --------------- Mixins --------------- */
+
+@mixin centerer($position: relative) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin h-center($position: relative) {
+    position: $position;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin v-center($position: relative) {
+    position: $position;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* --------------- Styles --------------- */
+
+html {
+    background-color: $ltgrey !important;
+    background: $ltgrey !important;
+}
+
+div:focus {
+    outline: none;
+}
+
+.background {
+    background-color: $ltgrey;
+    position: relative;
+}
+
+.full {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .left {
+        height: 100%;
+        width: 35%;
+        position: relative;
+        display: inline-block;
+        float: left;
+        //        background-color: green;
+        .stats {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding-top: 1.5em;
+            i {
+                color: darken($mdgrey, 5%);
+                font-size: 1.25em;
+                margin: 0;
+            }
+            span {
+                font-size: 1em;
+                color: $mdgrey;
+            }
+            hr {
+                border: 0;
+                border-top: 1px solid darken($ltgrey, 5%);
+                width: 25%;
+                margin: 1.25em 0;
+                @include h-center;
+            }
+        }
+    }
+    .right {
+        @extend .left;
+        height: 30em;
+        width: 65%;
+        border-left: 1px solid $ltgrey;
+        md-divider {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        md-content {
+            height: 100%;
+            padding: 0 !important;
+            .word {
+                padding: 0;
+                .md-subheader-inner {
+                    background-color: $ltgrey;
+                    color: orangered;
+                    text-transform: uppercase;
+                }
+                md-list {
+                    padding: 0;
+                }
+                span {
+                    margin: 0;
+                    margin-right: .5em;
+                    font-size: 1em;
+                    color: black;
+                }
+                p {
+                    margin: .5em 0;
+                }
+            }
+            .fill {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                h1 {
+                    margin: 0;
+                    @include centerer(absolute);
+                    color: $mdgrey;
+                    font-size: 1.5em;
+                }
+            }
+            
+        }
+        //        background-color: red;
+    }
+}
+
+md-toolbar {
+    position: fixed;
+    .tools {
+        @include centerer(absolute);
+        width: 71.25%;
+        max-width: 950px;
+        height: 100%;
+        ::-webkit-input-placeholder {
+            color: white;
+        }
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color: white;
+        }
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: white;
+        }
+        :-ms-input-placeholder {
+            color: white;
+        }
+        ::-webkit-input-placeholder::before {
+            font-family: fontAwesome;
+            font-size: 1em;
+            content: '   \f002  ';
+            color: $white
+        }
+        ::-moz-placeholder::before {
+            font-family: fontAwesome;
+            font-size: 1em;
+            content: '   \f002  ';
+            color: $white
+        }
+        /* firefox 19+ */
+        :-ms-input-placeholder::before {
+            font-family: fontAwesome;
+            font-size: 1em;
+            content: '   \f002  ';
+            color: $white
+        }
+        /* ie */
+        input:-moz-placeholder::before {
+            font-family: fontAwesome;
+            font-size: 1em;
+            content: '   \f002  ';
+            color: $white
+        }
+        .search {
+            display: inline-block;
+            float: left;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            input {
+                @include v-center(absolute);
+                background-color: rgba(256, 256, 256, 0.3);
+                outline: none;
+                border: 0;
+                border-radius: 2px;
+                color: white;
+                width: 100%;
+                padding: .25em;
+                padding-left: 1em;
+
+            }
+        }
+        .pinned {
+            width: 5%;
+            height: 100%;
+            position: relative;
+            display: inline-block;
+            float: right;
+            i {
+                @include centerer(absolute);
+                color: darken($green-blue, 15%);
+                font-size: 1.25em;
+            }
+        }
+        .pinned-active {
+            @extend .pinned;
+            i {
+                color: white;
+            }
+        }
+    }
+}
+
+.container {
+    width: 75%;
+    max-width: 1000px;
+    min-width: 550px;
+    padding-top: 4em;
+    position: relative;
+    @include h-center;
+    .heading {
+        position: relative;
+        height: 4em;
+        span {
+            position: absolute;
+            left: 5%;
+            bottom: 1em;
+            color: $mdgrey;
+        }
+    }
+    .hint {
+        text-align: right;
+        margin-right: 1em;
+        font-size: 12px;
+        padding-top: .25em;
+        color: $mdgrey;
+    }
+    .crawl-card {
+        @include h-center;
+        margin: 0;
+        border-radius: 0;
+        border-bottom: 1px solid $ltgrey;
+        width: 95%;
+        outline: none;
+        padding: 0;
+        position: relative;
+        color: $green-blue;
+        .md-subhead {
+            padding: 0;
+            span {
+                color: orangered;
+            }
+        }
+        .progress-wrapper {
+            @include h-center;
+            text-align: center;
+            height: 200px;
+            width: 100%;
+            position: relative;
+            margin: 2em auto 0 auto;
+            .progress {
+                
+                height: 100%;
+                width: 100%;
+                @include centerer(absolute);
+                .progress-content {
+                    @include centerer(absolute);
+                    span {
+                        font-size: 2.5em;
+                        color: orangered;
+                        margin: 0;
+                    }
+                    h2 {
+                        margin: 0;
+                        font-size: 1em;
+                        color: $mdgrey;
+                    }
+                }
+            }
+        }
+        i {
+            font-size: 1.25em;
+            color: lighten($mdgrey, 10%);
+            margin: 0 .5em;
+        }
+        span {
+            margin: 0 .5em;
+        }
+    }
+    .crawl-card-active {
+        @extend .crawl-card;
+        @include h-center;
+        height: 36em;
+        margin: 2em 0;
+        padding: 0 !important;
+        border-radius: 3px;
+        border-bottom: 0;
+        width: 100%;
+        outline: none;
+        .top {
+            height: 7em;
+            z-index: 999;
+            //            border-bottom: 1px solid $ltgrey;
+        }
+        .summary {
+            width: 100%;
+            height: 40em;
+        }
+        //        span {
+        //            color: $green-blue;
+        //            @include centerer(absolute);
+        //            font-size: 2em;
+        //        }
+    }
+    .last {
+        @extend .crawl-card;
+        border-bottom: 0 !important;
+    }
+    .first {
+        @extend .crawl-card;
+        margin-top: 0;
+    }
+    .search-card {
+        @extend .crawl-card;
+        padding: 0 2em;
+        md-chips {
+            margin-top: 2em;
+        }
+        md-input-container {
+            margin-bottom: 0;
+        }
+        .search-button {
+            width: 100%;
+            height: 4em;
+            position: relative;
+            button {
+                width: 20%;
+                margin: 0;
+                position: absolute;
+                right: 0em;
+                bottom: 2em;
+            }
+        }
+    }
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    background-color: $ltgrey;
+    height: 10em;
+    span {
+        color: $mdgrey;
+        @include centerer(absolute);
+    }
+}

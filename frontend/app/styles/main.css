@@ -1,0 +1,284 @@
+@charset "UTF-8";
+/* --------------- Mixins --------------- */
+/* --------------- Styles --------------- */
+html {
+  background-color: #F2F2F2 !important;
+  background: #F2F2F2 !important; }
+
+div:focus {
+  outline: none; }
+
+.background {
+  background-color: #F2F2F2;
+  position: relative; }
+
+.full {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  .full .left, .full .right {
+    height: 100%;
+    width: 35%;
+    position: relative;
+    display: inline-block;
+    float: left; }
+    .full .left .stats, .full .right .stats {
+      text-align: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding-top: 1.5em; }
+      .full .left .stats i, .full .right .stats i {
+        color: #929292;
+        font-size: 1.25em;
+        margin: 0; }
+      .full .left .stats span, .full .right .stats span {
+        font-size: 1em;
+        color: #9F9F9F; }
+      .full .left .stats hr, .full .right .stats hr {
+        border: 0;
+        border-top: 1px solid #e5e5e5;
+        width: 25%;
+        margin: 1.25em 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%); }
+  .full .right {
+    height: 30em;
+    width: 65%;
+    border-left: 1px solid #F2F2F2; }
+    .full .right md-divider {
+      margin-top: 10px;
+      margin-bottom: 0; }
+    .full .right md-content {
+      height: 100%;
+      padding: 0 !important; }
+      .full .right md-content .word {
+        padding: 0; }
+        .full .right md-content .word .md-subheader-inner {
+          background-color: #F2F2F2;
+          color: orangered;
+          text-transform: uppercase; }
+        .full .right md-content .word md-list {
+          padding: 0; }
+        .full .right md-content .word span {
+          margin: 0;
+          margin-right: .5em;
+          font-size: 1em;
+          color: black; }
+        .full .right md-content .word p {
+          margin: .5em 0; }
+      .full .right md-content .fill {
+        position: relative;
+        width: 100%;
+        height: 100%; }
+        .full .right md-content .fill h1 {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #9F9F9F;
+          font-size: 1.5em; }
+
+md-toolbar {
+  position: fixed; }
+  md-toolbar .tools {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 71.25%;
+    max-width: 950px;
+    height: 100%;
+    /* firefox 19+ */
+    /* ie */ }
+    md-toolbar .tools ::-webkit-input-placeholder {
+      color: white; }
+    md-toolbar .tools :-moz-placeholder {
+      /* Firefox 18- */
+      color: white; }
+    md-toolbar .tools ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: white; }
+    md-toolbar .tools :-ms-input-placeholder {
+      color: white; }
+    md-toolbar .tools ::-webkit-input-placeholder::before {
+      font-family: fontAwesome;
+      font-size: 1em;
+      content: '   \f002  ';
+      color: #FFFFFF; }
+    md-toolbar .tools ::-moz-placeholder::before {
+      font-family: fontAwesome;
+      font-size: 1em;
+      content: '   \f002  ';
+      color: #FFFFFF; }
+    md-toolbar .tools :-ms-input-placeholder::before {
+      font-family: fontAwesome;
+      font-size: 1em;
+      content: '   \f002  ';
+      color: #FFFFFF; }
+    md-toolbar .tools input:-moz-placeholder::before {
+      font-family: fontAwesome;
+      font-size: 1em;
+      content: '   \f002  ';
+      color: #FFFFFF; }
+    md-toolbar .tools .search {
+      display: inline-block;
+      float: left;
+      width: 100%;
+      height: 100%;
+      position: relative; }
+      md-toolbar .tools .search input {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.3);
+        outline: none;
+        border: 0;
+        border-radius: 2px;
+        color: white;
+        width: 100%;
+        padding: .25em;
+        padding-left: 1em; }
+    md-toolbar .tools .pinned, md-toolbar .tools .pinned-active {
+      width: 5%;
+      height: 100%;
+      position: relative;
+      display: inline-block;
+      float: right; }
+      md-toolbar .tools .pinned i, md-toolbar .tools .pinned-active i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #41545e;
+        font-size: 1.25em; }
+    md-toolbar .tools .pinned-active i {
+      color: white; }
+
+.container {
+  width: 75%;
+  max-width: 1000px;
+  min-width: 550px;
+  padding-top: 4em;
+  position: relative;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); }
+  .container .heading {
+    position: relative;
+    height: 4em; }
+    .container .heading span {
+      position: absolute;
+      left: 5%;
+      bottom: 1em;
+      color: #9F9F9F; }
+  .container .hint {
+    text-align: right;
+    margin-right: 1em;
+    font-size: 12px;
+    padding-top: .25em;
+    color: #9F9F9F; }
+  .container .crawl-card, .container .crawl-card-active, .container .last, .container .first, .container .search-card {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #F2F2F2;
+    width: 95%;
+    outline: none;
+    padding: 0;
+    position: relative;
+    color: #607D8B; }
+    .container .crawl-card .md-subhead, .container .crawl-card-active .md-subhead, .container .last .md-subhead, .container .first .md-subhead, .container .search-card .md-subhead {
+      padding: 0; }
+      .container .crawl-card .md-subhead span, .container .crawl-card-active .md-subhead span, .container .last .md-subhead span, .container .first .md-subhead span, .container .search-card .md-subhead span {
+        color: orangered; }
+    .container .crawl-card .progress-wrapper, .container .crawl-card-active .progress-wrapper, .container .last .progress-wrapper, .container .first .progress-wrapper, .container .search-card .progress-wrapper {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      height: 200px;
+      width: 100%;
+      position: relative;
+      margin: 2em auto 0 auto; }
+      .container .crawl-card .progress-wrapper .progress, .container .crawl-card-active .progress-wrapper .progress, .container .last .progress-wrapper .progress, .container .first .progress-wrapper .progress, .container .search-card .progress-wrapper .progress {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+        .container .crawl-card .progress-wrapper .progress .progress-content, .container .crawl-card-active .progress-wrapper .progress .progress-content, .container .last .progress-wrapper .progress .progress-content, .container .first .progress-wrapper .progress .progress-content, .container .search-card .progress-wrapper .progress .progress-content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+          .container .crawl-card .progress-wrapper .progress .progress-content span, .container .crawl-card-active .progress-wrapper .progress .progress-content span, .container .last .progress-wrapper .progress .progress-content span, .container .first .progress-wrapper .progress .progress-content span, .container .search-card .progress-wrapper .progress .progress-content span {
+            font-size: 2.5em;
+            color: orangered;
+            margin: 0; }
+          .container .crawl-card .progress-wrapper .progress .progress-content h2, .container .crawl-card-active .progress-wrapper .progress .progress-content h2, .container .last .progress-wrapper .progress .progress-content h2, .container .first .progress-wrapper .progress .progress-content h2, .container .search-card .progress-wrapper .progress .progress-content h2 {
+            margin: 0;
+            font-size: 1em;
+            color: #9F9F9F; }
+    .container .crawl-card i, .container .crawl-card-active i, .container .last i, .container .first i, .container .search-card i {
+      font-size: 1.25em;
+      color: #b9b9b9;
+      margin: 0 .5em; }
+    .container .crawl-card span, .container .crawl-card-active span, .container .last span, .container .first span, .container .search-card span {
+      margin: 0 .5em; }
+  .container .crawl-card-active {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 36em;
+    margin: 2em 0;
+    padding: 0 !important;
+    border-radius: 3px;
+    border-bottom: 0;
+    width: 100%;
+    outline: none; }
+    .container .crawl-card-active .top {
+      height: 7em;
+      z-index: 999; }
+    .container .crawl-card-active .summary {
+      width: 100%;
+      height: 40em; }
+  .container .last {
+    border-bottom: 0 !important; }
+  .container .first {
+    margin-top: 0; }
+  .container .search-card {
+    padding: 0 2em; }
+    .container .search-card md-chips {
+      margin-top: 2em; }
+    .container .search-card md-input-container {
+      margin-bottom: 0; }
+    .container .search-card .search-button {
+      width: 100%;
+      height: 4em;
+      position: relative; }
+      .container .search-card .search-button button {
+        width: 20%;
+        margin: 0;
+        position: absolute;
+        right: 0em;
+        bottom: 2em; }
+
+.footer {
+  position: relative;
+  width: 100%;
+  background-color: #F2F2F2;
+  height: 10em; }
+  .footer span {
+    color: #9F9F9F;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=main.css.map */
