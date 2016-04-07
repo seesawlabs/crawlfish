@@ -27,6 +27,8 @@ func (s *Server) Init() {
 	}
 
 	s.Router.Options("/api/v1/crawl", func(c *echo.Context) error {
+		c.Response().Header().Set("Access-Control-Request-Headers", "accept, authorization, content-type")
+		c.Response().Header().Set("Access-Control-Request-Method", "POST")
 		return c.JSON(http.StatusOK, nil)
 	})
 
@@ -46,7 +48,7 @@ func CORSMiddleware() echo.HandlerFunc {
 		c.Response().Header().Set("Content-Type", "application/json")
 		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
 		c.Response().Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Response().Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Response().Header().Set("Access-Control-Allow-Methods", "POST")
 		return nil
 	}
 }
