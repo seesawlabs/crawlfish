@@ -55,6 +55,10 @@ angular.module('crawlfishApp')
 
         function postComplete(resp) {
             console.log('success', resp);
+
+            // Clear Crawl data
+            vm.tags = [];
+            vm.url = ''
         }
 
         function postError(err) {
