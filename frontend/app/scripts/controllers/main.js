@@ -27,6 +27,15 @@ angular.module('crawlfishApp')
             crawl.clicked = !crawl.clicked;
             crawl.found = crawl.words_found.length;
             crawl.max = crawl.words.length;
+            crawl.pagesFound = findPageCount(crawl);
+        }
+
+        function findPageCount(crawl) {
+            var count = 0;
+            crawl.words_found.forEach(function(element) {
+                count = count + element.Links.length;
+            });
+            return count;
         }
     
         function startCrawl() {
