@@ -12,6 +12,9 @@ div:focus {
   background-color: #F2F2F2;
   position: relative; }
 
+md-progress-linear .md-bar {
+  background-color: orangered; }
+
 .full {
   position: relative;
   width: 100%;
@@ -50,6 +53,18 @@ div:focus {
     .full .right md-divider {
       margin-top: 10px;
       margin-bottom: 0; }
+    .full .right .no-words {
+      height: 100%;
+      width: 100%;
+      position: relative; }
+      .full .right .no-words h1 {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #9F9F9F;
+        font-size: 1.5em; }
     .full .right md-content {
       height: 100%;
       padding: 0 !important; }
@@ -192,6 +207,22 @@ md-toolbar {
     padding: 0;
     position: relative;
     color: #607D8B; }
+    .container .crawl-card .top .icon, .container .crawl-card-active .top .icon, .container .last .top .icon, .container .first .top .icon, .container .search-card .top .icon {
+      position: relative; }
+      .container .crawl-card .top .icon .fa-clock-o, .container .crawl-card-active .top .icon .fa-clock-o, .container .last .top .icon .fa-clock-o, .container .first .top .icon .fa-clock-o, .container .search-card .top .icon .fa-clock-o {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1em;
+        font-size: 1.5em;
+        color: orangered; }
+      .container .crawl-card .top .icon .fa-check, .container .crawl-card-active .top .icon .fa-check, .container .last .top .icon .fa-check, .container .first .top .icon .fa-check, .container .search-card .top .icon .fa-check {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1em;
+        font-size: 1.5em;
+        color: #607D8B; }
     .container .crawl-card .md-subhead, .container .crawl-card-active .md-subhead, .container .last .md-subhead, .container .first .md-subhead, .container .search-card .md-subhead {
       padding: 0; }
       .container .crawl-card .md-subhead span, .container .crawl-card-active .md-subhead span, .container .last .md-subhead span, .container .first .md-subhead span, .container .search-card .md-subhead span {

@@ -1,5 +1,5 @@
 <md-toolbar>
-<!--
+    <!--
     <div class="md-toolbar-tools">
         <i class="fa fa-menu"></i>
         <div class="tools">
@@ -33,16 +33,24 @@
     <div class="heading">
         <span>Crawl History</span>
     </div>
-    <md-card layout="column" class="crawl-card" ng-repeat="crawl in crawlHistory" ng-click="main.toggleCard(crawl)" ng-class="{'crawl-card-active': crawl.clicked, 'crawl-card':!crawl.clicked,'md-whiteframe-6dp': crawl.clicked,'last':$last, 'first':$first}">
-        <div class="top" layout="row" ng-class="{'md-whiteframe-1dp':crawl.clicked}">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">{{crawl.website}}</span>
-                    <span class="md-subhead">
+    <md-card layout="column" class="crawl-card" ng-repeat="crawl in crawlHistory | orderBy : 'crawling_start_date' : reverse
+" ng-click="main.toggleCard(crawl)" ng-class="{'crawl-card-active': crawl.clicked, 'crawl-card':!crawl.clicked,'md-whiteframe-6dp': crawl.clicked,'last':$last, 'first':$first}">
+        <div layout="column" class="top" ng-class="{'md-whiteframe-1dp':crawl.clicked}">
+            <md-progress-linear layout="row" md-mode="indeterminate" ng-if="crawl.in_progress"></md-progress-linear>
+            <div layout="row">
+                <md-card-title layout="row">
+                    <md-card-title-text>
+                        <span class="md-headline">{{crawl.website}}</span>
+                        <span class="md-subhead">
                     <span ng-repeat="word in crawl.words">{{word}}</span>
-                    </span>
-                </md-card-title-text>
-            </md-card-title>
+                        </span>
+                    </md-card-title-text>
+                </md-card-title>
+                <div class="icon" layout="row">
+                    <i ng-if="crawl.in_progress" class="fa fa-clock-o"></i>
+                    <i ng-if="!crawl.in_progress" class="fa fa-check"></i>
+                </div>
+            </div>
         </div>
         <div layout="row" class="full" ng-if="crawl.clicked">
             <div class="left">
@@ -74,7 +82,7 @@
                 </div>
             </div>
             <div class="right">
-                <md-content flex layout-padding>
+                <md-content flex layout-padding ng-if="crawl.words_found">
                     <div ng-repeat="word in crawl.words_found" class="word">
                         <md-subheader class="md-no-sticky">{{word.Name}}</md-subheader>
                         <md-list>
@@ -82,13 +90,15 @@
                                 <div class="md-list-item-text">
                                     <p><span>Found on: </span>{{link.ulr}}</p>
                                     <p><span>Count: </span>{{link.word_count}}</p>
-<!--                                    <p><span>Time elapsed: </span>{{link.time_elapsed | date:'mm:ss'}}</p>-->
                                 </div>
                                 <md-divider ng-if="!$last"></md-divider>
                             </md-list-item>
                         </md-list>
                     </div>
                 </md-content>
+                <div ng-if="!crawl.words_found" class="no-words">
+                    <h1>No Words Found</h1>
+                </div>
             </div>
     </md-card>
     </div>
