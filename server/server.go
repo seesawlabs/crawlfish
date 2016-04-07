@@ -49,6 +49,7 @@ func CORSMiddleware() echo.HandlerFunc {
 		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
 		c.Response().Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Response().Header().Set("Access-Control-Allow-Methods", "POST")
+		c.Response().Header().Set("Access-Control-Allow-Headers", "Accept, X-Requested-With, Content-Type, Authorization, k-consumer, k-app-type, k-app-version, Total")
 		return nil
 	}
 }
